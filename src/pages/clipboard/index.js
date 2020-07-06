@@ -77,14 +77,19 @@ export class Clipboard extends Component {
   render() {
     return (
       <div>
-        {this.state.loading && <Spin />}
-        <ItemCreator
-          {...this.state.newClip}
-          onContentChange={this.onNewContentChange}
-          onDescChange={this.onNewDescChange}
-          onCreate={this.onCreateNewItem}
-        />
-        <ItemList list={this.state.list} onRemoveItem={this.onRemoveItem} />
+        {this.state.loading ? (
+          <Spin tip="loading" />
+        ) : (
+          <>
+            <ItemCreator
+              {...this.state.newClip}
+              onContentChange={this.onNewContentChange}
+              onDescChange={this.onNewDescChange}
+              onCreate={this.onCreateNewItem}
+            />
+            <ItemList list={this.state.list} onRemoveItem={this.onRemoveItem} />
+          </>
+        )}
       </div>
     );
   }
