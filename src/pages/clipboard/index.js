@@ -6,7 +6,7 @@ import {
   createClipboardItem,
   deleteClipboardItem
 } from "../../utils/request";
-import { Spin } from "antd";
+import { Spin, Input } from "antd";
 const { clipboard } = navigator;
 export class Clipboard extends Component {
   state = {
@@ -15,7 +15,8 @@ export class Clipboard extends Component {
       content: "",
       desc: ""
     },
-    list: []
+    list: [],
+    keyword: ""
   };
 
   onNewContentChange = ({ target }) =>
@@ -64,7 +65,7 @@ export class Clipboard extends Component {
   // this.setState({
   //   list: this.state.list.filter(item => item.id !== id)
   // });
-
+  onKeywordChange = ({ target }) => this.setState({ keyword: target.value });
   componentDidMount() {
     getClipboardList().then(list => {
       this.setState({
@@ -87,7 +88,15 @@ export class Clipboard extends Component {
               onDescChange={this.onNewDescChange}
               onCreate={this.onCreateNewItem}
             />
-            <ItemList list={this.state.list} onRemoveItem={this.onRemoveItem} />
+            <Input value={this.state.keyword} onChange={this.onKeywordChange} />
+            <ItemList
+              list={this.state.list.filter(
+                item =>
+                  item.content.includes(this.state.keyword) ||
+                  item.desc.includes(this.state.keyword)
+              )}
+              onRemoveItem={this.onRemoveItem}
+            />
           </>
         )}
       </div>
