@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "antd";
 
-const { clipboard } = window.require("electron");
+const { clipboard } = navigator;
 
 export const ItemPreviewer = ({ id, content, desc, onDelete }) => (
   <div>

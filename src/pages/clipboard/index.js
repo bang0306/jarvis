@@ -7,7 +7,7 @@ import {
   deleteClipboardItem
 } from "../../utils/request";
 import { Spin } from "antd";
-const { clipboard } = window.require("electron");
+const { clipboard } = navigator;
 export class Clipboard extends Component {
   state = {
     loading: true,
@@ -33,8 +33,8 @@ export class Clipboard extends Component {
         desc: target.value
       }
     });
-  onCreateNewItem = () => {
-    const newContent = clipboard.readText();
+  onCreateNewItem = async () => {
+    const newContent = await clipboard.readText();
     this.setState({
       newClip: {
         ...this.state.newClip,
